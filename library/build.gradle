@@ -1,0 +1,47 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        externalNativeBuild {
+            cmake {
+                cFlags "-Xclang -load -Xclang /media/alvin/Windows8_OS/AndroidStudioProjectsLinux/YAHFA-master-temp/library/src/main/lib/libSandboxWritesPass.so"
+                cppFlags "-Xclang -load -Xclang /media/alvin/Windows8_OS/AndroidStudioProjectsLinux/YAHFA-master-temp/library/src/main/lib/libSandboxWritesPass.so"
+                arguments "-DANDROID_TOOLCHAIN=clang"
+            }
+        }
+/*        externalNativeBuild {
+            cmake {
+                arguments "-DANDROID_TOOLCHAIN=clang"
+            }
+        }*/
+
+/*    externalNativeBuild {
+        ndkBuild {
+            path 'src/main/jni/Android.mk'
+        }
+    }*/
+    }
+    buildTypes {
+        debug {
+            testCoverageEnabled false
+        }
+    }
+    externalNativeBuild {
+        cmake {
+            path "CMakeLists.txt"
+        }
+    }
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
+}
